@@ -17,8 +17,6 @@ namespace BusToSqlV2
         public static async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
             ILogger log)
-            //[ServiceBus("ionmessages", Connection = "sbConnection", EntityType = Microsoft.Azure.WebJobs.ServiceBus.EntityType.Queue)]
-            //out string queueMessages
         {
             log.LogInformation("C# HTTP trigger function processed a request.");
 

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -12,7 +13,10 @@ namespace BusToSqlV2
         public static void Run([ServiceBusTrigger("ionmessages", Connection = "sbConnection")]string myQueueItem, ILogger log)
         {
             log.LogInformation($"C# ServiceBus queue trigger function processed message: {myQueueItem}");
-            var e = JsonConvert.DeserializeObject<MyMessage>(myQueueItem);
+            var or = JsonConvert.DeserializeObject<ObjectResult>(myQueueItem);
+
+            //Extract the Value from the ObjectResult sent from the HTTP method and use the Value.
+            MyMessage e = or.Value as MyMessage;
             log.LogInformation($"Message: {e.Id}, {e.FirstName}, {e.LastName}");
 
             ///Write to SQL
