@@ -16,7 +16,7 @@ namespace BusToSqlV2
             var or = JsonConvert.DeserializeObject<ObjectResult>(myQueueItem);
 
             //Extract the Value from the ObjectResult sent from the HTTP method and use the Value.
-            MyMessage e = or.Value as MyMessage;
+            MyMessage e = JsonConvert.DeserializeObject<MyMessage>(or.Value as string);
             log.LogInformation($"Message: {e.Id}, {e.FirstName}, {e.LastName}");
 
             ///Write to SQL
